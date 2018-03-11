@@ -1,0 +1,18 @@
+language: java
+jdk: oraclejdk8
+jobs:
+  include:
+    - stage: build
+      script: mvn -B -V clean install
+    - stage: deploy
+      script: skip
+      deploy:
+        provider: script
+        script: mvn -s .travis/settings.xml -DperformRelease -DskipTests -Dgpg.skip=true deploy
+        on:
+          repo: chkal/jeti
+          branch: master
+env:
+  global:
+    - secure: "OMPBLFceoqmNQvXUTirVes3rkCoaPyrg96CnHCcvbbzKHb3UmYvkzFDVrwJfIHvuV5+5wVnscRyxtALuON2esu1BHDd/yPjIHRcVp0fC4PZuCTrjlAM7y7qzTTlIeU0t7ke+HeL7NXDJymJ0UzJZlj4mMHQGQ8CZU+xWqHqbq3BCt93s7+BrurHojr3f50AJHccoFOTWHgLi4XVzZN3AoYxT8y9LGjTXj2p8Ux3BLJLabhQsRQcYGcbvPdXOzMPeYqWfwCyIGMpHMG0v0CFJ+cIwb2mkJKMJtyMYgYmVpChsPfVW4J2/qh4eLw6995JVU9B2T98GXJ73w3WkWmK8QX5e/V76SOa9eCjjPn88vuXQFtUeLRDxw4oBF25IokhA+gqPXWM8hHVPup6bI2UbC4xWE/Z8DSe/LqGHAd4lkbFs2M0kZau7XXNiFl7mN1Xo/OmRmscEF5i3o+za5SBcGY93AIXUCEl0Fq70Dhjge8slinSlfWOjmuyUpoFmCNVr39a3Lgh+b3FZ7Ax5sMdACPuTdal/2tEAcGn0QeT37CUF2cgC5I4zVO4q0bAOpvWcniosp8GjpywKHvi+iR0dF0jS9Q7KGe9jlftI/ijEq83dA8w4j5aRw180EGscVcX3hceSyGdmGN2tUNdu36paOCdYwUn22Qtxx93aQpCq1TY="
+    - secure: "fR8eEXjWdMokemBR7rCMOC3ypp+OO3nHCyCSzK2HNkhg29d1tCWDdhXHogo64LnAO6SryNnB63+KUgcI/fzg/rKAlIJNp5VoMQADilJgw4kxq6tNmvDs9qi1md4gcZ8jV0ezmPb2a7CsKa4JZgm8F/dFfEXBMTEgizp9tml0M9iYlY0MnOh6d/SxcLUGvKESuJldKNdBXvTfSg20H8jwLASsicn8fOGRpSsSOsLvlBDu8+KLtAGHj8pFg8pMG4Yb+qwT3qeX/+PzbRLHbPwBwfq4nHK2/WeokX9/eIOkN790xQlIYzRY6OjKxnaPr5zbRQM2l68/uIHsmudmVZJzgxocBOtEZUolmCP4mTCMTX3FHXpteRPJGqlLFxFxPfm7m1NvwaEKaCy6zTeBnmM+X/aqAbZH1KXMc8c1Mh3epGOUe6OsrYUsb+Auo90ej/MLHi50d558IpC3bR6oFCdzerbPKdOYJz2kDmK2S9aMkE/fIrTdKJCmPuElru9/v8oCu9X/j2G/8uLbUU7Q8RtARjyLjjcJEf8cR27cUSw2F/JhpvNLn404j4/THX8Bge2OFSqXZMC7cXqhbielXpQEwHXQyra4B8L0GX58rphHWezFN42Wo6YzMaSw4lokwi9Dj8DAQyM5coNdKrCA4B6BXr/+6WwkKy+gF6htcjCbi1c="
