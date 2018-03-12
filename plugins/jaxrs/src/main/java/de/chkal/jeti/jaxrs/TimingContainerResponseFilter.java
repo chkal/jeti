@@ -14,11 +14,9 @@ public class TimingContainerResponseFilter implements ContainerResponseFilter {
   public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext)
       throws IOException {
 
-    JaxRsTimingMetricsProvider provider = TimingRegistryHolder.get()
-        .getProviderByType(JaxRsTimingMetricsProvider.class);
-    if (provider != null) {
-      provider.notifyEnd();
-    }
+    TimingRegistryHolder.get()
+        .getProviderByType(JaxRsTimingMetricsProvider.class)
+        .ifPresent(provider -> provider.notifyEnd());
 
   }
 

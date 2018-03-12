@@ -25,7 +25,7 @@ public class TimingPhaseListener implements PhaseListener {
 
   private JsfTimingMetricsProvider getMetricsProvider() {
     TimingRegistry registry = TimingRegistryHolder.get();
-    JsfTimingMetricsProvider provider = registry.getProviderByType(JsfTimingMetricsProvider.class);
+    JsfTimingMetricsProvider provider = registry.getProviderByType(JsfTimingMetricsProvider.class).orElse(null);
     if (provider == null) {
       provider = new JsfTimingMetricsProvider();
       registry.register(provider);
