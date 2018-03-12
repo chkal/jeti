@@ -1,20 +1,25 @@
-package de.chkal.jeti.core.servlet;
+package de.chkal.jeti.core;
 
-import de.chkal.jeti.core.TimingMetric;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-class HeaderSerializer {
+public class ServerTimingHeader {
 
-  protected static String serializeMetrics(List<TimingMetric> metrics) {
+  public static final String HEADER_NAME = "Server-Timing";
+
+  private ServerTimingHeader() {
+    // utility class
+  }
+
+  public static String serializeMetrics(List<TimingMetric> metrics) {
     return metrics.stream()
         .map(m -> serializeMetric(m))
         .collect(Collectors.joining(", "));
   }
 
-  private static String serializeMetric(TimingMetric m) {
+  public static String serializeMetric(TimingMetric m) {
 
     List<String> components = new ArrayList<>();
     components.add(m.getName());
@@ -28,7 +33,7 @@ class HeaderSerializer {
 
   }
 
-  private static String serializeParam(String key, Object value) {
+  public static String serializeParam(String key, Object value) {
 
     boolean quote = !(value instanceof Number);
 

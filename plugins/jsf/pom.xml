@@ -9,11 +9,11 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>jeti-jsf</artifactId>
+  <artifactId>jeti-plugin-jsf</artifactId>
   <packaging>jar</packaging>
 
-  <name>Jeti - JSF</name>
-  <description>Jeti - JSF</description>
+  <name>Jeti - Plugin - JSF</name>
+  <description>Jeti - Plugin - JSF</description>
 
   <dependencies>
 

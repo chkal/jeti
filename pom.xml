@@ -22,8 +22,10 @@
 
   <modules>
     <module>core</module>
-    <module>jaxrs</module>
-    <module>jsf</module>
+    <module>engines/servlet3</module>
+    <module>engines/servlet4</module>
+    <module>plugins/jaxrs</module>
+    <module>plugins/jsf</module>
   </modules>
 
   <licenses>
