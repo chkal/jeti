@@ -11,4 +11,9 @@ public class Servlet3IntegrationStrategy implements IntegrationStrategy {
     return new Servlet3WrappedResponse(response);
   }
 
+  @Override
+  public void finish(HttpServletResponse wrappedResponse, TimingRegistry registry) {
+    // NOOP
+  }
+
 }

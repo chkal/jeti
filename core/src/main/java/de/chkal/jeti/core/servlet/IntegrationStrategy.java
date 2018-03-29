@@ -7,4 +7,6 @@ public interface IntegrationStrategy {
 
   HttpServletResponse apply(HttpServletResponse response, TimingRegistry registry);
 
+  void finish(HttpServletResponse wrappedResponse, TimingRegistry registry);
+
 }

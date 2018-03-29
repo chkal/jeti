@@ -30,10 +30,13 @@ public class TimingServletFilter implements Filter {
     TimingRegistryHolder.bind(registry);
     try {
 
-      HttpServletResponse wrappedResponse = getIntegrationStrategy().apply(response, registry);
+      IntegrationStrategy strategy = getIntegrationStrategy();
+
+      HttpServletResponse wrappedResponse = strategy.apply(response, registry);
 
       filterChain.doFilter(servletRequest, wrappedResponse);
 
+      strategy.finish(wrappedResponse, registry);
 
     } finally {
       TimingRegistryHolder.release();
