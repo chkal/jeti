@@ -57,7 +57,13 @@ To use this engine, add the following dependency to your `pom.xml`:
 </dependency>
 ```
 
-Please note that the Servlet 3.x engine sends the required HTTP response headers just before the
+Please note that the Servlet 3.x engine will first write all the data sent to the response output
+stream to a buffer. After the request has completely been processed, JETI will emit the timing HTTP
+header and flush the buffer to the client. This is required because HTTP response headers must
+be sent BEFORE the response body is sent. The buffering will have some small performance impact,
+but this approach will allow JETI to collect metrics for the complete request lifecycle.
+
+sends the required HTTP response headers just before the
 Servlet response is committed. Therefore, you won't be able to see any metrics which are collected
 after the first byte has been written to the response.
 
@@ -74,7 +80,7 @@ To use this engine, add the following dependency:
 </dependency>
 ```
 
-Instead of sending a HTTP response header just before the response gets committed, this engine uses the 
+Instead of buffering the HTTP response body, this engine uses the 
 HTTP trailer API available in Servlet 4.0. Trailers are basically headers which are sent AFTER the 
 response body. Because they are sent after the body, you will be also able to expose metrics generated
 while data is sent to the client.
