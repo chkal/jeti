@@ -41,7 +41,7 @@ public class Servlet4IntegrationStrategy implements IntegrationStrategy {
   }
 
   @Override
-  public void finish(HttpServletResponse wrappedResponse, TimingRegistry registry) {
+  public void finish(HttpServletResponse response, TimingRegistry registry) {
     // NOOP
   }
 

@@ -12,8 +12,10 @@ public class Servlet3IntegrationStrategy implements IntegrationStrategy {
   }
 
   @Override
-  public void finish(HttpServletResponse wrappedResponse, TimingRegistry registry) {
-    // NOOP
+  public void finish(HttpServletResponse response, TimingRegistry registry) {
+    if (response instanceof Servlet3WrappedResponse) {
+      ((Servlet3WrappedResponse) response).finish();
+    }
   }
 
 }
