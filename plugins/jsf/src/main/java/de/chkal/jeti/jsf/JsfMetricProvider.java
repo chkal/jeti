@@ -1,6 +1,6 @@
 package de.chkal.jeti.jsf;
 
-import de.chkal.jeti.core.PerformanceMetric;
+import de.chkal.jeti.core.DefaultPerformanceMetric;
 import de.chkal.jeti.core.Metric;
 import de.chkal.jeti.core.MetricProvider;
 import java.util.ArrayList;
@@ -42,33 +42,42 @@ public class JsfMetricProvider implements MetricProvider {
       long begin = beforeTimes.getOrDefault(phase, 0L);
       long end = afterTimes.getOrDefault(phase, 0L);
 
-      if (begin > 0 && end > 0 && end >= begin) {
+      if (begin > 0 && end > 0) {
 
-        result.add(new PerformanceMetric() {
+        // Name: use ordinal for correct ordering in Chrome
+        String name = "jsf_" + phase.getOrdinal() + "_" + phase.getName().toLowerCase();
 
-          @Override
-          public String getName() {
-            // use ordinal for correct ordering in Chrome
-            return "jsf_" + phase.getOrdinal() + "_" + phase.getName().toLowerCase();
-          }
+        String description = getDescription(phase);
 
-          @Override
-          public String getDescription() {
-            return phase.getName();
-          }
-
-          @Override
-          public Number getDuration() {
-            return end - begin;
-          }
-
-        });
+        result.add(new DefaultPerformanceMetric(name, description, end - begin));
 
       }
 
     }
 
     return result;
+
+  }
+
+  private static String getDescription(PhaseId phaseId) {
+
+    StringBuilder builder = new StringBuilder();
+    boolean nextUppercase = true;
+
+    for (char c : phaseId.getName().toCharArray()) {
+      if (c == '_') {
+        nextUppercase = true;
+      } else {
+        if (nextUppercase) {
+          builder.append(String.valueOf(c).toUpperCase());
+          nextUppercase = false;
+        } else {
+          builder.append(String.valueOf(c).toLowerCase());
+        }
+      }
+    }
+
+    return builder.toString();
 
   }
 
