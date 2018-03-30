@@ -3,7 +3,7 @@ package de.chkal.jeti.core;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class PerformanceTimingMetric implements TimingMetric {
+public abstract class PerformanceMetric implements Metric {
 
   public abstract String getDescription();
 

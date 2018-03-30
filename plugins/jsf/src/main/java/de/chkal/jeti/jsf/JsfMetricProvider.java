@@ -1,8 +1,8 @@
 package de.chkal.jeti.jsf;
 
-import de.chkal.jeti.core.PerformanceTimingMetric;
-import de.chkal.jeti.core.TimingMetric;
-import de.chkal.jeti.core.TimingMetricsProvider;
+import de.chkal.jeti.core.PerformanceMetric;
+import de.chkal.jeti.core.Metric;
+import de.chkal.jeti.core.MetricProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.event.PhaseId;
 
-public class JsfTimingMetricsProvider implements TimingMetricsProvider {
+public class JsfMetricProvider implements MetricProvider {
 
   private static final List<PhaseId> JSF_PHASES = Arrays.asList(
       PhaseId.RESTORE_VIEW,
@@ -33,9 +33,9 @@ public class JsfTimingMetricsProvider implements TimingMetricsProvider {
   }
 
   @Override
-  public List<TimingMetric> getMetrics() {
+  public List<Metric> getMetrics() {
 
-    List<TimingMetric> result = new ArrayList<>();
+    List<Metric> result = new ArrayList<>();
 
     for (PhaseId phase : JSF_PHASES) {
 
@@ -44,7 +44,7 @@ public class JsfTimingMetricsProvider implements TimingMetricsProvider {
 
       if (begin > 0 && end > 0 && end >= begin) {
 
-        result.add(new PerformanceTimingMetric() {
+        result.add(new PerformanceMetric() {
 
           @Override
           public String getName() {

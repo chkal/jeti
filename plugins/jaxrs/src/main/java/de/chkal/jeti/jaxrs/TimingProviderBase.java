@@ -1,17 +1,17 @@
 package de.chkal.jeti.jaxrs;
 
-import de.chkal.jeti.core.TimingRegistry;
-import de.chkal.jeti.core.servlet.TimingRegistryHolder;
+import de.chkal.jeti.core.ProviderRegistry;
+import de.chkal.jeti.core.servlet.ProviderRegistryHolder;
 
 abstract class TimingProviderBase {
 
-  protected JaxRsTimingMetricsProvider getMetricsProvider() {
+  protected JaxRsMetricProvider getMetricsProvider() {
 
-    TimingRegistry registry = TimingRegistryHolder.get();
+    ProviderRegistry registry = ProviderRegistryHolder.get();
 
-    return registry.getProviderByType(JaxRsTimingMetricsProvider.class)
+    return registry.getProviderByType(JaxRsMetricProvider.class)
         .orElseGet(() -> {
-          JaxRsTimingMetricsProvider provider = new JaxRsTimingMetricsProvider();
+          JaxRsMetricProvider provider = new JaxRsMetricProvider();
           registry.register(provider);
           return provider;
         });

@@ -1,12 +1,12 @@
 package de.chkal.jeti.jaxrs;
 
-import de.chkal.jeti.core.DefaultPerformanceTimingMetric;
-import de.chkal.jeti.core.TimingMetric;
-import de.chkal.jeti.core.TimingMetricsProvider;
+import de.chkal.jeti.core.DefaultPerformanceMetric;
+import de.chkal.jeti.core.Metric;
+import de.chkal.jeti.core.MetricProvider;
 import java.util.Arrays;
 import java.util.List;
 
-public class JaxRsTimingMetricsProvider implements TimingMetricsProvider {
+public class JaxRsMetricProvider implements MetricProvider {
 
   private long requestFilter;
   private long responseFilter;
@@ -42,7 +42,7 @@ public class JaxRsTimingMetricsProvider implements TimingMetricsProvider {
   }
 
   @Override
-  public List<TimingMetric> getMetrics() {
+  public List<Metric> getMetrics() {
 
     long readerTime = beforeReadFrom > 0 && afterReadFrom > 0
         ? afterReadFrom - beforeReadFrom
@@ -60,9 +60,9 @@ public class JaxRsTimingMetricsProvider implements TimingMetricsProvider {
     long resourceTime = filterTime - readerTime;
 
     return Arrays.asList(
-        new DefaultPerformanceTimingMetric("jaxrs-1-reader", "MessageBodyReader", readerTime),
-        new DefaultPerformanceTimingMetric("jaxrs-2-resource", "ResourceMethod", resourceTime),
-        new DefaultPerformanceTimingMetric("jaxrs-3-writer", "MessageBodyWriter", writerTime)
+        new DefaultPerformanceMetric("jaxrs-1-reader", "MessageBodyReader", readerTime),
+        new DefaultPerformanceMetric("jaxrs-2-resource", "ResourceMethod", resourceTime),
+        new DefaultPerformanceMetric("jaxrs-3-writer", "MessageBodyWriter", writerTime)
     );
 
   }

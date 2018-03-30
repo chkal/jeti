@@ -1,12 +1,12 @@
 package de.chkal.jeti.core;
 
-public class DefaultPerformanceTimingMetric extends PerformanceTimingMetric {
+public class DefaultPerformanceMetric extends PerformanceMetric {
 
   private final String name;
   private final String description;
   private final Number duration;
 
-  public DefaultPerformanceTimingMetric(String name, String description, Number duration) {
+  public DefaultPerformanceMetric(String name, String description, Number duration) {
     this.name = name;
     this.description = description;
     this.duration = duration;

@@ -1,6 +1,6 @@
 package de.chkal.jeti.core.servlet;
 
-import de.chkal.jeti.core.TimingRegistry;
+import de.chkal.jeti.core.ProviderRegistry;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.ServiceLoader;
@@ -25,9 +25,9 @@ public class TimingServletFilter implements Filter {
 
     HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-    TimingRegistry registry = new TimingRegistry();
+    ProviderRegistry registry = new ProviderRegistry();
 
-    TimingRegistryHolder.bind(registry);
+    ProviderRegistryHolder.bind(registry);
     try {
 
       IntegrationStrategy strategy = getIntegrationStrategy();
@@ -39,7 +39,7 @@ public class TimingServletFilter implements Filter {
       strategy.finish(wrappedResponse, registry);
 
     } finally {
-      TimingRegistryHolder.release();
+      ProviderRegistryHolder.release();
     }
 
   }
@@ -59,7 +59,6 @@ public class TimingServletFilter implements Filter {
     }
 
     return iterator.next();
-
 
   }
 

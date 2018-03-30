@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TimingRegistry {
+public class ProviderRegistry {
 
-  private final List<TimingMetricsProvider> providers = new ArrayList<>();
+  private final List<MetricProvider> providers = new ArrayList<>();
 
-  public void register(TimingMetricsProvider provider) {
+  public void register(MetricProvider provider) {
     this.providers.add(provider);
   }
 
-  public List<TimingMetricsProvider> getProviders() {
+  public List<MetricProvider> getProviders() {
     return providers;
   }
 
-  public <T extends TimingMetricsProvider> Optional<T> getProviderByType(Class<T> type) {
+  public <T extends MetricProvider> Optional<T> getProviderByType(Class<T> type) {
     return Optional.ofNullable(
         type.cast(
             providers.stream()

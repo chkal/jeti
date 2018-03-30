@@ -10,7 +10,7 @@ public class TimingReaderInterceptor extends TimingProviderBase implements Reade
   @Override
   public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException, WebApplicationException {
 
-    JaxRsTimingMetricsProvider provider = getMetricsProvider();
+    JaxRsMetricProvider provider = getMetricsProvider();
 
     provider.notifyBeforeReadFrom();
     try {

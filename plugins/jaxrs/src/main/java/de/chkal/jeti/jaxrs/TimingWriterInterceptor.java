@@ -10,7 +10,7 @@ public class TimingWriterInterceptor extends TimingProviderBase implements Write
   @Override
   public void aroundWriteTo(WriterInterceptorContext context) throws IOException, WebApplicationException {
 
-    JaxRsTimingMetricsProvider provider = getMetricsProvider();
+    JaxRsMetricProvider provider = getMetricsProvider();
 
     provider.notifyBeforeWriteTo();
     try {

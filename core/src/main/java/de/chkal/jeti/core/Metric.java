@@ -2,7 +2,7 @@ package de.chkal.jeti.core;
 
 import java.util.Map;
 
-public interface TimingMetric {
+public interface Metric {
 
   String getName();
 

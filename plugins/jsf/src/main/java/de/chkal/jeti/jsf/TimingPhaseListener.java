@@ -1,7 +1,7 @@
 package de.chkal.jeti.jsf;
 
-import de.chkal.jeti.core.TimingRegistry;
-import de.chkal.jeti.core.servlet.TimingRegistryHolder;
+import de.chkal.jeti.core.ProviderRegistry;
+import de.chkal.jeti.core.servlet.ProviderRegistryHolder;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
@@ -23,11 +23,11 @@ public class TimingPhaseListener implements PhaseListener {
     return PhaseId.ANY_PHASE;
   }
 
-  private JsfTimingMetricsProvider getMetricsProvider() {
-    TimingRegistry registry = TimingRegistryHolder.get();
-    JsfTimingMetricsProvider provider = registry.getProviderByType(JsfTimingMetricsProvider.class).orElse(null);
+  private JsfMetricProvider getMetricsProvider() {
+    ProviderRegistry registry = ProviderRegistryHolder.get();
+    JsfMetricProvider provider = registry.getProviderByType(JsfMetricProvider.class).orElse(null);
     if (provider == null) {
-      provider = new JsfTimingMetricsProvider();
+      provider = new JsfMetricProvider();
       registry.register(provider);
     }
     return provider;

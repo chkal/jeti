@@ -13,13 +13,13 @@ public class ServerTimingHeader {
     // utility class
   }
 
-  public static String serializeMetrics(List<TimingMetric> metrics) {
+  public static String serializeMetrics(List<Metric> metrics) {
     return metrics.stream()
         .map(m -> serializeMetric(m))
         .collect(Collectors.joining(", "));
   }
 
-  public static String serializeMetric(TimingMetric m) {
+  public static String serializeMetric(Metric m) {
 
     List<String> components = new ArrayList<>();
     components.add(m.getName());

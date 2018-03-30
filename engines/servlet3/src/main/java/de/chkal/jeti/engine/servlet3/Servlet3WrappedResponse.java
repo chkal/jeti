@@ -1,8 +1,8 @@
 package de.chkal.jeti.engine.servlet3;
 
 import de.chkal.jeti.core.ServerTimingHeader;
-import de.chkal.jeti.core.TimingMetric;
-import de.chkal.jeti.core.servlet.TimingRegistryHolder;
+import de.chkal.jeti.core.Metric;
+import de.chkal.jeti.core.servlet.ProviderRegistryHolder;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -64,7 +64,7 @@ public class Servlet3WrappedResponse extends HttpServletResponseWrapper {
       return;
     }
 
-    List<TimingMetric> metrics = TimingRegistryHolder.get().getProviders().stream()
+    List<Metric> metrics = ProviderRegistryHolder.get().getProviders().stream()
         .flatMap(provider -> provider.getMetrics().stream())
         .collect(Collectors.toList());
 
