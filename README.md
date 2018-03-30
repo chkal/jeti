@@ -110,7 +110,15 @@ just add the corresponding dependency to your `pom.xml`:
 </dependency>
 ```
 
-### Step 4: View metrics in your browser
+### Step 4: Start you application
+
+Usually you will use JETI only during development. That's why JETI doesn't expose the collected
+metrics by default. If you want to enable JETI, start your application with the following
+system property:
+
+    -Djeti.active=true
+
+### Step 5: View metrics in your browser
 
 That's all. Now you should be able to view metrics in your browser. Google Chrome added support for the 
 current draft of the Server Timing spec in version 65.

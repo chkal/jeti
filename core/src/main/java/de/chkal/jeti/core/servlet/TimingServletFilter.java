@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TimingServletFilter implements Filter {
 
+  public static final String JETI_ENABLED_PROPERTY = "jeti.active";
+
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     // NOOP
@@ -30,13 +32,24 @@ public class TimingServletFilter implements Filter {
     ProviderRegistryHolder.bind(registry);
     try {
 
-      IntegrationStrategy strategy = getIntegrationStrategy();
+      boolean enabled = Boolean.parseBoolean(System.getProperty(JETI_ENABLED_PROPERTY));
 
-      HttpServletResponse wrappedResponse = strategy.apply(response, registry);
+      // JETI active
+      if (enabled) {
 
-      filterChain.doFilter(servletRequest, wrappedResponse);
+        IntegrationStrategy strategy = getIntegrationStrategy();
 
-      strategy.finish(wrappedResponse, registry);
+        HttpServletResponse wrappedResponse = strategy.apply(response, registry);
+        filterChain.doFilter(servletRequest, wrappedResponse);
+        strategy.finish(wrappedResponse, registry);
+
+      }
+
+      // JETI inactive
+      else {
+        filterChain.doFilter(servletRequest, servletResponse);
+      }
+
 
     } finally {
       ProviderRegistryHolder.release();
